@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
- *           (C) 2017 The LineageOS Project
+ * Copyright (c) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +14,20 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.cyanogenmod.pocketmode;
 
-import android.os.Bundle;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
-import com.cyanogenmod.settings.device.utils.NodePreferenceActivity;
+public class BootCompletedReceiver extends BroadcastReceiver {
 
-public class ButtonSettings extends NodePreferenceActivity {
+    private static final String TAG = "XiaomiPocketMode";
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.button_panel);
+    public void onReceive(final Context context, Intent intent) {
+        Log.d(TAG, "Starting");
+        context.startService(new Intent(context, PocketModeService.class));
     }
 }
