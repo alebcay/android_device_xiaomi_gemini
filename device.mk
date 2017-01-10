@@ -131,10 +131,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
-# ConfigPanel
-PRODUCT_PACKAGES += \
-    ConfigPanel \
-
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8996 \
@@ -199,10 +195,6 @@ PRODUCT_PACKAGES += \
 # IRQ Balancer
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
-
-# KeyHandler
-PRODUCT_PACKAGES += \
-    com.cyanogenmod.keyhandler
 
 # Lights
 PRODUCT_PACKAGES += \
