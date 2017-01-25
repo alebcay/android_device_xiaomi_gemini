@@ -23,7 +23,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.android.internal.os.DeviceKeyHandler;
+import com.cyanogenmod.settings.device.utils.DeviceKeyHandler;
 
 
 import com.cyanogenmod.settings.device.utils.FileUtils;
