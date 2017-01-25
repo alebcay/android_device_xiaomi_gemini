@@ -1,4 +1,5 @@
-# Copyright (C) 2016 The CyanogenMod Project
+#
+# Copyright 2016 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH:= $(call my-dir)
-
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := lights.qcom
-
-LOCAL_MODULE_RELATIVE_PATH := hw
-
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := lights.c
-LOCAL_SHARED_LIBRARIES := liblog libcutils
-
-include $(BUILD_SHARED_LIBRARY)
+PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/device.mk \
+    $(LOCAL_DIR)/omni_gemini.mk 
