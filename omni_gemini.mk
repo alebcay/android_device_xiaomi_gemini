@@ -27,6 +27,7 @@ $(call inherit-product, device/xiaomi/gemini/device.mk)
 
 # Inherit from our custom product configuration.
 $(call inherit-product, vendor/omni/config/common.mk)
+WITH_DEXPREOPT := true
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := omni_gemini
