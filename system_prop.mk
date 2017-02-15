@@ -84,6 +84,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.fingerprint=fpc \
     sys.fpc.tu.disabled=0
 
+# Google
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opa.eligible_device=true
+
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=1 \
