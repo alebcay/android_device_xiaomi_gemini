@@ -2,6 +2,9 @@
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.min.duration.secs=15 \
     ro.audio.flinger_standbytime_ms=300
+  
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.fluencetype=fluence
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
