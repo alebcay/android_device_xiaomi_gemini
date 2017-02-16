@@ -23,7 +23,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.ssr=false \
-    ro.qc.sdk.audio.fluencetype=none \
+    ro.qc.sdk.audio.fluencetype=fluence \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true
@@ -58,6 +58,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Data modules
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.iwlan.enable=true \
     persist.data.mode=concurrent \
     persist.data.netmgrd.qos.enable=true \
     ro.use_data_netmgrd=true
