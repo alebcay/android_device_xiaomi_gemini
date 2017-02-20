@@ -36,6 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Data modules
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.iwlan.enable=true \
     persist.data.mode=concurrent \
     persist.data.netmgrd.qos.enable=true \
     ro.use_data_netmgrd=true
@@ -89,10 +90,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.loc.nlp_name=com.qualcomm.location \
     ro.gps.agps_provider=1
 
+# IMS
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.volte_avail_ovr=1 \
+    persist.dbg.vt_avail_ovr=1 \
+    persist.radio.NO_STAPA=1 \
+    persist.radio.VT_HYBRID_ENABLE=1
+
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true \
-    mm.enable.smoothstreaming=true
+    media.aac_51_output_enabled=true
 
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -119,32 +126,24 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.fw.bg_apps_limit=60 \
     ro.vendor.extension_library=libqti-perfd-client.so
 
-# Qualcomm
-PRODUCT_PROPERTY_OVERRIDES += \
-    com.qc.hardware=true \
-    ro.qc.sdk.sensors.gestures=true
-
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     DEVICE_PROVISIONED=1 \
     rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM \
-    ro.telephony.default_network=22,22 \
-    ro.telephony.default_cdma_sub=0 \
     ro.telephony.call_ring.multiple=false \
+    ro.telephony.default_cdma_sub=0 \
+    ro.telephony.default_network=20,20 \
     ro.telephony.ril_class=GeminiRIL \
     persist.data.qmi.adb_logmask=0 \
-    persist.dbg.volte_avail_ovr=1 \
-    persist.dbg.vt_avail_ovr=1 \
     persist.net.doxlat=true \
     persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.force_on_dc=true \
-    persist.radio.rat_on=combine \
-    persist.radio.multisim.config=dsds \
     persist.radio.custom_ecc=1 \
-    persist.radio.sib16_support=1 \
-    persist.radio.NO_STAPA=1 \
-    persist.radio.VT_HYBRID_ENABLE=1
+    persist.radio.force_on_dc=true \
+    persist.radio.multisim.config=dsds \
+    persist.radio.rat_on=combine \
+    persist.radio.redir_party_num=1 \
+    persist.radio.sib16_support=1
 
 # RmNet Data
 PRODUCT_PROPERTY_OVERRIDES += \

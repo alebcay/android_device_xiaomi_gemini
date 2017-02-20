@@ -261,6 +261,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libjson
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_gemini
+
 # RIL
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full \
@@ -270,6 +274,10 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8996
+
+# Shims
+PRODUCT_PACKAGES += \
+    libshims_ims
 
 # WiFi
 PRODUCT_PACKAGES += \
