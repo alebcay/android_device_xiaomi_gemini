@@ -515,4 +515,8 @@
         <item>"/system/framework/arm64/boot.oat"</item>
         <item>"/system/framework/arm64/boot-core-libart.oat"</item>
     </string-array>
+
+    <!-- Internal default to navigation bar value
+         NOTE: Otherwie PA will use the NavigationBar as default . -->
+    <bool name="config_defaultToNavigationBar">false</bool>
 </resources>
