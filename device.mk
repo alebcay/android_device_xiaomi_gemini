@@ -118,7 +118,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    Snap
+    Camera2
 
 # Device config scripts
 PRODUCT_PACKAGES += \
