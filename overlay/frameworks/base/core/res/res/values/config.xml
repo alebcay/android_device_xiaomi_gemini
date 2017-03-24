@@ -516,8 +516,4 @@
         <item>"/system/framework/arm64/boot-core-libart.oat"</item>
         <item>"/data/dalvik-cache/arm64/system@framework@services.jar@classes.dex"</item>
     </string-array>
-
-    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
-         autodetected from the Configuration. -->
-    <bool name="config_showNavigationBar">true</bool>
 </resources>
