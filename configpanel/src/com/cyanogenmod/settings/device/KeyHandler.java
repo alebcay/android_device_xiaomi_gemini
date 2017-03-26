@@ -24,24 +24,24 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.cyanogenmod.settings.device.utils.DeviceKeyHandler;
+import com.android.internal.os.DeviceKeyHandler;
 
+import org.cyanogenmod.internal.util.FileUtils;
 
-import com.cyanogenmod.settings.device.utils.FileUtils;
+import cyanogenmod.hardware.CMHardwareManager;
 
 public class KeyHandler implements DeviceKeyHandler {
 
     private static final String TAG = KeyHandler.class.getSimpleName();
 
     private static final String FP_HOME_NODE = "/sys/devices/soc/soc:fpc_fpc1020/enable_key_events";
-    public static final String VIRTUAL_KEYS_NODE = "/proc/touchpanel/capacitive_keys_enable";
 
     private static boolean sScreenTurnedOn = true;
     private static final boolean DEBUG = false;
 
     private final Context mContext;
 
-    private final BroadcastReceiver mUpdateReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
@@ -55,15 +55,21 @@ public class KeyHandler implements DeviceKeyHandler {
     public KeyHandler(Context context) {
         mContext = context;
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        mContext.registerReceiver(mUpdateReceiver, filter);
+        IntentFilter screenStateFilter = new IntentFilter();
+        screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        screenStateFilter.addAction(Intent.ACTION_SCREEN_ON);
+        mContext.registerReceiver(mScreenStateReceiver, screenStateFilter);
     }
 
     public boolean handleKeyEvent(KeyEvent event) {
-        boolean virtualKeysEnabled = FileUtils.readOneLine(VIRTUAL_KEYS_NODE).equals("0");
-        boolean fingerprintHomeButtonEnabled = FileUtils.readOneLine(FP_HOME_NODE).equals("1");
+        CMHardwareManager hardware = CMHardwareManager.getInstance(mContext);
+        boolean virtualKeysEnabled = hardware.get(CMHardwareManager.FEATURE_KEY_DISABLE);
+        boolean fingerprintHomeButtonEnabled = FileUtils.isFileReadable(FP_HOME_NODE) &&
+                FileUtils.readOneLine(FP_HOME_NODE).equals("1");
+
+        if (!hasSetupCompleted()) {
+            return false;
+        }
 
         if (event.getKeyCode() == KeyEvent.KEYCODE_HOME) {
             if (event.getScanCode() == 96) {
