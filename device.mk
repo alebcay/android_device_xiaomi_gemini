@@ -18,9 +18,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/xiaomi/gemini/gemini-vendor.mk)
-
-# System properties
--include $(LOCAL_PATH)/system_prop.mk
+$(call inherit-product-if-exists, vendor/xiaomi/msm8996-common/msm8996-common-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -28,10 +26,6 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
-
-# Device was launched with M
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=23
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
@@ -131,18 +125,16 @@ PRODUCT_PACKAGES += \
 
 # Device config scripts
 PRODUCT_PACKAGES += \
-    init.leds.sh \
-    init.qcom.bt.sh
+    init.panel.sh
 
 # Device init scripts
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.rc \
+    init.qcom.sh \
     init.qcom.power.rc \
     init.qcom.usb.rc \
-    init.target.rc \
-    ueventd.qcom.rc \
-    init.qcom.sh
+    ueventd.qcom.rc
 
 # CNE
 PRODUCT_PACKAGES += \
@@ -150,7 +142,7 @@ PRODUCT_PACKAGES += \
 
 # ConfigPanel
 PRODUCT_PACKAGES += \
-    ConfigPanel \
+    ConfigPanel
 
 # Display
 PRODUCT_PACKAGES += \
@@ -166,8 +158,7 @@ PRODUCT_COPY_FILES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    fingerprintd \
-    XiaomiPocketMode
+    fingerprintd
 
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
@@ -212,14 +203,6 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes \
     libebtc
-
-# IRQ Balancer
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
-
-# KeyHandler
-PRODUCT_PACKAGES += \
-    com.cyanogenmod.keyhandler
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -291,6 +274,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     sensors.msm8996
 
+# Shims
+PRODUCT_PACKAGES += \
+    libshims_ims
+
 # WiFi
 PRODUCT_PACKAGES += \
     libqsap_sdk \
@@ -309,5 +296,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/fstman.ini:system/etc/wifi/fstman.ini \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
