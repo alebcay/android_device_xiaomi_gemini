@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.cyanogenmod.settings.gemini;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,8 +31,8 @@ import android.view.MenuItem;
 
 import com.android.settingslib.drawer.SettingsDrawerActivity;
 
-import com.cyanogenmod.settings.device.utils.FileUtils;
-import com.cyanogenmod.settings.device.utils.PackageManagerUtils;
+import com.cyanogenmod.settings.gemini.utils.FileUtils;
+import com.cyanogenmod.settings.gemini.utils.PackageManagerUtils;
 
 public class ButtonSettingsFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {

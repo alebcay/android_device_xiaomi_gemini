@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device.utils;
+package com.cyanogenmod.settings.gemini.utils;
 
 import android.util.Log;
 

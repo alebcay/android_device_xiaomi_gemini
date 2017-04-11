@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.cyanogenmod.settings.gemini;
 
 import android.content.Context;
 import android.content.Intent;

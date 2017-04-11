@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.cyanogenmod.settings.gemini;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,8 +24,8 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.cyanogenmod.settings.device.utils.DeviceKeyHandler;
-import com.cyanogenmod.settings.device.utils.FileUtils;
+import com.cyanogenmod.settings.gemini.utils.DeviceKeyHandler;
+import com.cyanogenmod.settings.gemini.utils.FileUtils;
 
 public class KeyHandler implements DeviceKeyHandler {
 

@@ -17,13 +17,13 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           android:sharedUserId="android.uid.system"
-          package="com.cyanogenmod.settings.device"
+          package="com.cyanogenmod.settings.gemini"
           android:versionCode="6"
           android:versionName="2.4" >
 
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
 
-    <protected-broadcast android:name="com.cyanogenmod.settings.device.CUST_UPDATE" />
+    <protected-broadcast android:name="com.cyanogenmod.settings.gemini.CUST_UPDATE" />
 
     <uses-sdk
         android:minSdkVersion="24" />
@@ -37,7 +37,7 @@
 
         <provider
             android:name=".ConfigPanelSearchIndexablesProvider"
-            android:authorities="com.cyanogenmod.settings.device"
+            android:authorities="com.cyanogenmod.settings.gemini.gemini"
             android:multiprocess="false"
             android:grantUriPermissions="true"
             android:permission="android.permission.READ_SEARCH_INDEXABLES"

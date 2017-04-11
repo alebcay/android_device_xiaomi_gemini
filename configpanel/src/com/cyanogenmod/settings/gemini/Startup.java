@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.cyanogenmod.settings.gemini;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -26,7 +26,7 @@ import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
-import com.cyanogenmod.settings.device.utils.FileUtils;
+import com.cyanogenmod.settings.gemini.utils.FileUtils;
 
 public class Startup extends BroadcastReceiver {
 
