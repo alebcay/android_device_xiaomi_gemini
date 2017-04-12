@@ -15,50 +15,64 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device.utils;
+package com.cyanogenmod.settings.device;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
-import android.preference.ListPreference;
-import android.preference.SwitchPreference;
+import android.support.v14.preference.PreferenceFragment;
+import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import java.io.File;
+import com.android.settingslib.drawer.SettingsDrawerActivity;
 
 import com.cyanogenmod.settings.device.utils.FileUtils;
+import com.cyanogenmod.settings.device.utils.PackageManagerUtils;
 
-public class NodePreferenceActivity extends PreferenceActivity
+public class ButtonSettingsFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        addPreferencesFromResource(R.xml.button_panel);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         updatePreferencesBasedOnDependencies();
-            getListView().setPadding(0, 0, 0, 0);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         String node = Constants.sBooleanNodePreferenceMap.get(preference.getKey());
-        if (!TextUtils.isEmpty(node)) {
+        if (!TextUtils.isEmpty(node) && FileUtils.isFileWritable(node)) {
             Boolean value = (Boolean) newValue;
             FileUtils.writeLine(node, value ? "1" : "0");
+            if (Constants.FP_WAKEUP_KEY.equals(preference.getKey())) {
+                value &= prefs.getBoolean(Constants.FP_POCKETMODE_KEY, false);
+                Utils.broadcastCustIntent(getContext(), value);
+            }
             return true;
         }
         node = Constants.sStringNodePreferenceMap.get(preference.getKey());
-        if (!TextUtils.isEmpty(node)) {
+        if (!TextUtils.isEmpty(node) && FileUtils.isFileWritable(node)) {
             FileUtils.writeLine(node, (String) newValue);
             return true;
         }
+
+        if (Constants.FP_POCKETMODE_KEY.equals(preference.getKey())) {
+            Utils.broadcastCustIntent(getContext(), (Boolean) newValue);
+            return true;
+        }
+
         return false;
     }
 
@@ -71,7 +85,7 @@ public class NodePreferenceActivity extends PreferenceActivity
             if (b == null) continue;
             b.setOnPreferenceChangeListener(this);
             String node = Constants.sBooleanNodePreferenceMap.get(pref);
-            if (new File(node).exists()) {
+            if (FileUtils.isFileReadable(node)) {
                 String curNodeValue = FileUtils.readOneLine(node);
                 b.setChecked(curNodeValue.equals("1"));
             } else {
@@ -83,23 +97,23 @@ public class NodePreferenceActivity extends PreferenceActivity
             if (l == null) continue;
             l.setOnPreferenceChangeListener(this);
             String node = Constants.sStringNodePreferenceMap.get(pref);
-            if (new File(node).exists()) {
+            if (FileUtils.isFileReadable(node)) {
                 l.setValue(FileUtils.readOneLine(node));
             } else {
                 l.setEnabled(false);
             }
         }
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        // Respond to the action bar's Up/Home button
-        case android.R.id.home:
-            finish();
-            return true;
+        // Initialize other preferences whose keys are not associated with nodes
+        final PreferenceCategory fingerprintCategory =
+                (PreferenceCategory) getPreferenceScreen().findPreference(Constants.CATEGORY_FP);
+
+        SwitchPreference b = (SwitchPreference) findPreference(Constants.FP_POCKETMODE_KEY);
+        if (!PackageManagerUtils.isAppInstalled(getContext(), "com.cyanogenmod.pocketmode")) {
+            fingerprintCategory.removePreference(b);
+        } else {
+            b.setOnPreferenceChangeListener(this);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void updatePreferencesBasedOnDependencies() {
@@ -107,11 +121,11 @@ public class NodePreferenceActivity extends PreferenceActivity
             SwitchPreference b = (SwitchPreference) findPreference(pref);
             if (b == null) continue;
             String dependencyNode = Constants.sNodeDependencyMap.get(pref)[0];
-            if (new File(dependencyNode).exists()) {
+            if (FileUtils.isFileReadable(dependencyNode)) {
                 String dependencyNodeValue = FileUtils.readOneLine(dependencyNode);
                 boolean shouldSetEnabled = dependencyNodeValue.equals(
                         Constants.sNodeDependencyMap.get(pref)[1]);
-                Constants.updateDependentPreference(this, b, pref, shouldSetEnabled);
+                Utils.updateDependentPreference(getContext(), b, pref, shouldSetEnabled);
             }
         }
     }
