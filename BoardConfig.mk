@@ -182,9 +182,12 @@ TARGET_POWERHAL_VARIANT := qcom
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
+
+ifneq ($(HOST_OS),darwin)
 TARGET_USE_SDCLANG := true
 SDCLANG_PATH := prebuilts/clang/linux-x86/host/sdclang-3.8/bin
 SDCLANG_LTO_DEFS := device/qcom/common/sdllvm-lto-defs.mk
+endif
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
